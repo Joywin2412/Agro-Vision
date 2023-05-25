@@ -1,0 +1,27 @@
+@import url('https://fonts.googleapis.com/css2?family=Alkatra:wght@700&family=Courgette&family=Lobster&display=swap');
+
+.farm-container {
+  background: url('./images/background.jpg') center center/cover no-repeat;
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  box-shadow: inset 0 0 0 1000px rgba(0, 0, 0, 0.2);
+}
+
+.farm-container > h1 {
+  color: #fff;
+  font-size: 100px;
+  margin-top: -100px;
+}
+
+.farm-container > p {
+  margin-top: 8px;
+  max-width: 60%;
+  color: #fff;
+  font-size: 40px;
+  font-family: 'Alkatra', cursive;
+}
+

@@ -1,0 +1,82 @@
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css');
+
+footer {
+  background-color: #f8f8f8;
+  padding: 50px 0;
+  font-size: 16px;
+  color: #666;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+h3 {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+ul li {
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+}
+
+ul li i {
+  margin-right: 10px;
+  font-size: 20px;
+  color: #666;
+}
+
+ul li a {
+  color: #666;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+ul li a:hover {
+  color: #000;
+}
+
+.social-links li a i {
+  background-color:#064635;
+  color: #fff;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+  transition: background-color
+}
+
+.social-links li a i {
+  font-size: 20px;
+  margin-right: 10px;
+}
+
+.social-links li a:hover i {
+  color: #000;
+}
+
+.link
+{
+  color: #0F6292;
+  text-decoration: underline;
+}
+.copyright{
+  font-size: small;
+  color:#666;
+  padding-top: 10px;
+  padding-bottom: 0px;
+  position: absolute;
+  left: 44%;
+}

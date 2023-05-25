@@ -1,0 +1,145 @@
+@import url('https://fonts.googleapis.com/css2?family=Alkatra:wght@700&family=Courgette&family=Lobster&display=swap');
+
+*{
+  font-family: 'Alkatra', cursive;
+}
+
+.home-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-image: url('./images/backdrop.jpg');
+  background-size: cover;
+  background-position: center;
+}
+
+.home-form-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-left: auto;
+  padding: 20px;
+  padding-top: 2%;
+  background-color: #f3efe5;
+  box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2);
+  width: 80%;
+  height: 100%;
+  max-width: 500px;
+  opacity: 0.8;
+  background-color: rgba(243, 239, 229, 0.8);
+  /* font-family: 'Alkatra', cursive; */
+}
+
+h1,
+h3 {
+  
+  font-size: 3rem;
+  margin-bottom: 20px;
+  color: #064635;
+  text-align: center;
+}
+
+h3 {
+  margin-top: 50px;
+  font-size: 2rem;
+  color: #000;
+}
+
+.ff{
+  text-align: left;
+}
+
+p {
+  
+  font-size: 1.5rem;
+  margin-bottom: 15px;
+  color:#7c7c7c;
+  text-align: center;
+  padding: auto 10%;
+}
+
+input {
+  margin-bottom: 20px;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+  font-size: 1.2rem;
+  width: 95%;
+}
+
+.password-container {
+  position: relative;
+}
+
+.password-input {
+  margin-bottom: 20px;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+  font-size: 1.2rem;
+  width: 100%;
+}
+
+.show-password-btn {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: #064635;
+  cursor: pointer;
+}
+
+.but {
+  margin: 10px;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  background-color: #1f755e;
+  color: #fff;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  width: 45%;
+}
+
+button:hover {
+  background-color: #83ac21;
+  transform: translateY(-2px);
+  box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2);
+}
+
+  .others{
+    text-align: center;
+    padding-top: 100px;
+  }
+
+   .store-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 5%;
+    margin-bottom: 5%;
+  }
+  
+   .bttn-1 {
+    width: 250px;
+    margin: 50px 10px; 
+    
+  } 
+
+
+
+  h4{
+    margin-left: 70px;
+  }
+/* 
+ .str1{
+  margin-left:10% ;
+ }
+  */

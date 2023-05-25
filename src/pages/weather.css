@@ -1,0 +1,68 @@
+.weather-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    /*background-image: url("path/to/image.jpg"); replace with your own image path */
+    background-size: cover;
+    background-position: center;
+  }
+  
+    
+    .weather-icon-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 30px;
+    }
+    
+    .weather-icon {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%; /* Make the icon circular /
+    border: 2px solid #333; / Add a border for contrast /
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3); / Add a subtle shadow effect */
+    }
+    
+    .weather-info-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    }
+    
+    .temperature-info {
+    font-size: 48px;
+    font-weight: bold;
+    margin: 0;
+    color: #333; /* Make the temperature text stand out /
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.5); / Add a subtle white shadow for contrast */
+    }
+    
+    .weather-description {
+    font-size: 24px;
+    font-weight: bold;
+    margin: 10px 0;
+    text-transform: capitalize;
+    color: #666; /* Add some color to the description text */
+    }
+    
+    .humidity-info {
+    font-size: 18px;
+    font-weight: normal;
+    margin: 0;
+    color: #999; /* Make the humidity text less prominent /
+    text-shadow: none; / Remove the text shadow for readability */
+    }
+    
+    @media screen and (max-width: 600px) {
+    /* On small screens, stack the icon and weather info vertically */
+    .weather-container {
+    flex-direction: column;
+    }
+    .weather-icon-container {
+    margin-right: 0;
+    margin-bottom: 20px;
+    }
+    }
