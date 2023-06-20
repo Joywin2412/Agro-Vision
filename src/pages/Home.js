@@ -231,16 +231,12 @@ const Home = () => {
         // call an api here inorder to show friends
         // console.log(d.data.Polygon_id);
         // console.log("I found the polygon_id and it is inside the polygon");
-        setLoading(false);
       }
     } catch (err) {
       console.log(err);
     }
     if (p) {
-      console.log("api request");
-
       let s2 = `${process.env.REACT_APP_BACKEND}/user/polygonData`;
-      console.log("Polygon creation");
 
       console.log(id);
       id += email;
@@ -265,11 +261,9 @@ const Home = () => {
           "polygon",
           JSON.stringify({ polygon_id: d2.data.Polygon_id })
         );
-        setLoading(false);
       } catch (err) {}
-
-      // console.log(loading);
     }
+    setLoading(false);
   };
 
   // const polygonFinder = async () => {};

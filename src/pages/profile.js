@@ -187,24 +187,22 @@ function Profile() {
       setLoading(false);
     }
   };
-  const friendsList = async () => {
+  const fetchOptions = async () => {
+    let name, email, accesstoken, id_now;
     const loggedInUser = localStorage.getItem("user");
-    let myEmail;
-    var accesstoken;
-    let id_now;
+    const polygonUser = localStorage.getItem("polygon");
     if (loggedInUser) {
       const foundUser = JSON.parse(loggedInUser);
       accesstoken = foundUser.token;
-      myEmail = foundUser.email;
+      name = foundUser.email;
+      email = foundUser.email;
     }
-    const p = localStorage.getItem("polygon");
-    if (p) {
-      const foundUser = JSON.parse(p);
+    if (polygonUser) {
+      const foundUser = JSON.parse(polygonUser);
       id_now = foundUser.polygon_id;
     }
-    console.log(id_now);
-    let s1 = `${process.env.REACT_APP_BACKEND}/user/friends`;
-    console.log(polygon_id);
+    let s = `${process.env.REACT_APP_BACKEND}`;
+    let s1 = s + `/user/options`;
     let requestOptions = {
       headers: {
         "Content-Type": "application/json",
@@ -212,92 +210,55 @@ function Profile() {
       },
     };
     let val = JSON.stringify({
-      id: id_now,
-      email: myEmail,
+      name: name,
+      email: email,
     });
     try {
-      const d = await axios.post(s1, val, requestOptions);
+      let d = await axios.post(s1, val, requestOptions);
+      setShowOptions(d.data.options);
+
+      d = await axios.post(
+        s + `/user/friends`,
+        JSON.stringify({
+          id: id_now,
+          email: email,
+        }),
+        requestOptions
+      );
       setObj(d.data);
       localStorage.setItem("obj", JSON.stringify(d.data));
-      console.log(d);
-      // setLoading(false);
-    } catch (err) {
-      console.log(err);
-    }
 
-    let pendingLink = `${process.env.REACT_APP_BACKEND}/user/pending`;
-    // console.log(polygon_id);
-    requestOptions = {
-      method: "post",
-      url: pendingLink,
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${accesstoken}`,
-      },
-    };
-    // console.log(myEmail);
-    val = JSON.stringify({
-      email1: myEmail,
-    });
-    try {
-      const d = await axios.post(pendingLink, val, requestOptions);
-      // console.log(d);
-      const arr = d.data;
-      console.log("This is pending", arr);
+      d = await axios.post(
+        s + "/user/pending",
+        JSON.stringify({
+          email1: email,
+        }),
+        requestOptions
+      );
+      let arr = d.data;
       const pending2 = {};
       arr.forEach((curr_val) => (pending2[curr_val.Email2] = 1));
       setPending(pending2);
-      // setLoading(false);
-    } catch (err) {
-      console.log(err);
-    }
 
-    // api for notif list
-    let notifLink = `${process.env.REACT_APP_BACKEND}/user/notif`;
-    // console.log(polygon_id);
-    requestOptions = {
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${accesstoken}`,
-      },
-    };
-    // console.log(myEmail);
-    val = JSON.stringify({
-      email1: myEmail,
-    });
-    try {
-      const d = await axios.post(notifLink, val, requestOptions);
-      // console.log("Notif", d);
-      const arr = d.data;
+      d = await axios.post(
+        s + `/user/notif`,
+        JSON.stringify({
+          email1: email,
+        }),
+        requestOptions
+      );
+      arr = d.data;
       setNotif(arr);
-      console.log("This is notifications", arr);
       const f = {};
       arr.forEach((curr_val) => (f[curr_val.Email] = 1));
       setHashNotif(f);
-      // console.log()
-      // setLoading(false);
-    } catch (err) {
-      console.log(err);
-    }
 
-    let acceptLink = `${process.env.REACT_APP_BACKEND}/user/acceptList`;
-    // console.log(polygon_id);
-    requestOptions = {
-      method: "post",
-      url: acceptLink,
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${accesstoken}`,
-      },
-    };
-    // console.log(myEmail);
-    val = JSON.stringify({
-      email1: myEmail,
-    });
-    try {
-      const d = await axios.post(acceptLink, val, requestOptions);
-      console.log("Triends", d);
-      const arr = d.data;
+      d = await axios.post(
+        s + `/user/acceptList`,
+        JSON.stringify({ email1: email }),
+        requestOptions
+      );
+      arr = d.data;
 
       console.log("This is friends", arr);
       const notif2 = {};
@@ -305,48 +266,14 @@ function Profile() {
       setFriends(arr);
       setHashFriends(notif2);
       localStorage.setItem("friends", JSON.stringify({ friends: notif2 }));
-      setLoading(false);
-    } catch (err) {
-      console.log(err);
-      setLoading(false);
-    }
-  };
-  const fetchOptions = async () => {
-    const loggedInUser = localStorage.getItem("user");
-    var accesstoken;
-    let name, email;
-    if (loggedInUser) {
-      const foundUser = JSON.parse(loggedInUser);
-      accesstoken = foundUser.token;
-      name = foundUser.email;
-      email = foundUser.email;
-    }
-    let s1 = `${process.env.REACT_APP_BACKEND}/user/options`;
-    const requestOptions = {
-      method: "post",
-      url: s1,
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${accesstoken}`,
-      },
-    };
-    const val = JSON.stringify({
-      name: name,
-      email: email,
-    });
-    try {
-      const d = await axios.post(s1, val, requestOptions);
-      // console.log(d.data);
-      setShowOptions(d.data.options);
 
-      // setLoading(0);
+      setLoading(false);
     } catch (err) {
       console.log(err);
-      // setLoading(0);
+      setLoading(false);
     }
   };
   useEffect(() => {
-    console.log("I got called");
     setLoading(1);
     const loggedInUser = localStorage.getItem("user");
     let myEmail;
@@ -366,7 +293,7 @@ function Profile() {
       // setLoading(false);
     }
     fetchOptions();
-    friendsList();
+    // friendsList();
 
     // passing props of hashFriendsList for showing phone
     // pending list

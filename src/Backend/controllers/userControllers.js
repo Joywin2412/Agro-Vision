@@ -278,7 +278,9 @@ const cropsList = AsyncHandler(async (req, res) => {
 
 const optionsList = AsyncHandler(async (req, res) => {
   const { name, email } = req.body;
-  // console.log(crops);
+
+  // console.log(req.url);
+  // console.log(name, email);
   try {
     let h = await cropsconsider.findOne({ Name: name, Email: email });
     if (h)
@@ -419,7 +421,9 @@ const friendRequest = AsyncHandler(async (req, res) => {
 const pendingList = AsyncHandler(async (req, res) => {
   const { email1 } = req.body;
   // res.json("Hi");
-  // console.log("This",email1);
+  console.log(req.url);
+  console.log("This", email1);
+  console.log("\n");
   try {
     let h = await friendsconsider.find({
       Email1: email1,

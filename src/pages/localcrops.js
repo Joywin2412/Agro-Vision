@@ -86,24 +86,18 @@ const Home = () => {
     // setLoading(false);
     setYou(0);
   };
-  const fetchOptions = async () => {
-    // const loggedInUser = localStorage.getItem("user");
-    // var accesstoken;
-    // if (loggedInUser) {
-    //   const foundUser = JSON.parse(loggedInUser);
-    //   accesstoken = foundUser.token;
-    // }
-    // console.log("Token is this", accesstoken);
-    // setLoading(false);
-  };
+
   const fetchFarmers = async () => {
     const loggedInUser = localStorage.getItem("user");
     var accesstoken;
     var id_now;
+    let name, email;
     if (loggedInUser) {
       const foundUser = JSON.parse(loggedInUser);
       // console.log(foundUser);
       accesstoken = foundUser.token;
+      name = foundUser.name;
+      email = foundUser.email;
     }
     const p = localStorage.getItem("polygon");
     if (p) {
@@ -174,17 +168,13 @@ const Home = () => {
     const location = localStorage.getItem("latitudes");
     if (location) {
       const foundLocation = JSON.parse(location);
-      // console.log(foundLocation);
       lat_now = foundLocation.lat;
       setLat(foundLocation.lat);
       lon_now = foundLocation.lon;
       setLon(foundLocation.lon);
-      // asyn function detected
     }
     let lat1, lon1, lat2, lon2, lat3, lon3, lat4, lon4;
     let a = Math.sqrt((1500 * 4) / Math.sqrt(3));
-    // console.log(a);
-    // console.log(lat, lon);
     let b = (Math.sqrt(3) / 2) * a;
     b /= 1000;
     lat1 = lat_now - b * Math.cos(45);
@@ -209,51 +199,7 @@ const Home = () => {
     setLon4(lon4);
     setLoading(false);
   };
-  const fetchLocations = async () => {
-    // const loggedInUser = localStorage.getItem("user");
-    // var accesstoken;
-    // var id_now;
-    // if (loggedInUser) {
-    //   const foundUser = JSON.parse(loggedInUser);
-    //   accesstoken = foundUser.token;
-    // }
-    // const p = localStorage.getItem("polygon");
-    // if (p) {
-    //   const foundUser = JSON.parse(p);
-    //   id_now = foundUser.polygon_id;
-    // }
-    // let s1 = "http://localhost:5000/api/user/latitudes";
-    // const requestOptions = {
-    //   method: "post",
-    //   url: s1,
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //     Authorization: `Bearer ${accesstoken}`,
-    //   },
-    // };
-    // const val = JSON.stringify({
-    //   polygon_id: id_now,
-    // });
-    // console.log("The value is ", val);
-    // try {
-    //   const d = await axios.post(s1, val, requestOptions);
-    //   console.log("Locations", d);
-    //   setLat1(d.data.lat1);
-    //   setLat2(d.data.lat2);
-    //   setLat3(d.data.lat3);
-    //   setLat4(d.data.lat4);
-    //   setLon1(d.data.lon1);
-    //   setLon2(d.data.lon2);
-    //   setLon3(d.data.lon3);
-    //   setLon4(d.data.lon4);
-    //   setLoading(false);
-    //   console.log("found locations", d.data);
-    // } catch (err) {
-    //   console.log(err);
-    // }
-  };
   useEffect(() => {
-    setLoading(1);
     const link = document.createElement("link");
     link.rel = "preload";
     document.head.appendChild(link);
@@ -261,7 +207,6 @@ const Home = () => {
     let name2;
     if (loggedInUser) {
       const foundUser = JSON.parse(loggedInUser);
-      // console.log(foundUser);
       setName(foundUser.name);
       name2 = foundUser.name;
       setEmail(foundUser.email);
@@ -272,14 +217,11 @@ const Home = () => {
     const location = localStorage.getItem("latitudes");
     if (location) {
       const foundLocation = JSON.parse(location);
-      // console.log(foundLocation);
       lat_now = foundLocation.lat;
       setLat(foundLocation.lat);
       lon_now = foundLocation.lon;
       setLon(foundLocation.lon);
-      // asyn function detected
     }
-    console.log("afawd");
     const p = localStorage.getItem("polygon");
     if (location) {
       const p2 = JSON.parse(p);
@@ -290,27 +232,17 @@ const Home = () => {
     const p2 = localStorage.getItem("friends");
     if (p2) {
       const p3 = JSON.parse(p2);
-      console.log("Hioadnfgiowa", p3);
       setFriends(p3.friends);
     }
+
+    if (JSON.parse(p).polygon_id) {
+      setLoading(1);
+      fetchFarmers();
+    }
     return () => {
-      // Clean up after component unmount
       document.head.removeChild(link);
     };
   }, []);
-
-  useEffect(() => {
-    if (polygon_id) {
-      setLoading(1);
-      fetchFarmers();
-      fetchOptions();
-      // console.log("hi");
-      fetchLocations();
-      // console.log("Locations executed");
-    } else {
-      setLoading(false);
-    }
-  }, [polygon_id]);
 
   if (loading) return <Loading />;
   return (
