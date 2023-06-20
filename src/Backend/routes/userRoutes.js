@@ -25,6 +25,18 @@ const {
 // const jwt = require();
 const router = express.Router();
 
+function AuthenticateUser(req, res, next) {
+  try {
+    const { email } = req.body;
+    const token = req.headers.authorization.split(" ")[1];
+    const decoded = jwt.verify(token, process.env.JWT_SECRET, { id: email });
+    next();
+  } catch (err) {
+    console.log(req.url);
+    console.log(err);
+    return res.status(401).send({ message: "Invalid token" });
+  }
+}
 router.route("/").post(registerUser);
 router.post("/login", authUser);
 router.get("/profile/:id", AuthenticateUser, profileUser);
@@ -46,22 +58,4 @@ router.post("/accept", AuthenticateUser, acceptList);
 router.post("/decline", AuthenticateUser, declineList);
 router.post("/delete", AuthenticateUser, deleteUser);
 
-function AuthenticateUser(req, res, next) {
-  next();
-  // const token = req.headers.authorization.split(" ")[1];
-
-  // console.log(token);
-  // if (!token) {
-  //   return res.status(401).send({ message: "No token provided" });
-  // }
-  // console.log(process.env.JWT_SECRET);
-  // try {
-  //   const decoded = jwt.verify(token, process.env.JWT_SECRET);
-  //   console.log(decoded);
-  //   next();
-  // } catch (err) {
-  //   console.log(err);
-  //   return res.status(401).send({ message: "Invalid token" });
-  // }
-}
 module.exports = router;

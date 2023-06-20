@@ -34,7 +34,8 @@ function Profile() {
       };
       // console.log(name2);
       const { data } = await axios.get(
-        `${process.env.REACT_APP_BACKEND}/user/profile/${name2}`
+        `${process.env.REACT_APP_BACKEND}/user/profile/${name2}`,
+        config
       );
 
       // setLoading(false);
@@ -49,8 +50,10 @@ function Profile() {
     let requestOptions = {
       method: "post",
       url: acceptLink,
-      headers: { "Content-Type": "application/json" },
-      Authorization: `Bearer ${accesstoken}`,
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${accesstoken}`,
+      },
     };
     // console.log(myEmail);
     let val = JSON.stringify({

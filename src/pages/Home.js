@@ -25,7 +25,7 @@ const Home = () => {
   const { name, email, name2, email2, setName, setEmail } = useGlobalContext();
   const [rem, setRem] = useState(0);
   const { polygon_id, setId } = useGlobalContext();
-  const [loading, setLoading] = useState(0);
+  const [loading, setLoading] = useState(1);
   const [found, setFound] = useState(0);
   const [done, setDone] = useState(0);
   const [lat1, setLat1] = useState(0);
@@ -100,15 +100,22 @@ const Home = () => {
       try {
         let s2 = `${process.env.REACT_APP_BACKEND}/user/address`;
         const requestOptions = {
-          headers: { "Content-Type": "application/json" },
-          Authorization: `Bearer ${accesstoken}`,
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${accesstoken}`,
+          },
         };
         const d_now = await axios.post(s2, { email }, requestOptions);
         // console.log(d_now);
 
         try {
           let s1 = `${process.env.REACT_APP_API}/${d_now.data.address}.json?key=${process.env.REACT_APP_WEATHER_API_KEY}`;
-          console.log(s1);
+
+          const requestOptions = {
+            headers: {
+              "Content-Type": "application/json",
+            },
+          };
           const d = await axios.get(s1, requestOptions);
           console.log(d);
           lat_now = d.data.results[0].position.lat;
@@ -124,6 +131,12 @@ const Home = () => {
           setLon(d.data.results[0].position.lon);
           // call an api to update the lat and lon of the user
           try {
+            const requestOptions = {
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${accesstoken}`,
+              },
+            };
             let s2 = `${process.env.REACT_APP_BACKEND}/user/location`;
             console.log(s2, lat_now, lon_now);
             const d2 = await axios.post(
@@ -280,7 +293,7 @@ const Home = () => {
     t1 = name2;
     t2 = email2;
   }
-
+  if (loading) return <Loading />;
   if (!loading) {
     if (profile) {
       return (

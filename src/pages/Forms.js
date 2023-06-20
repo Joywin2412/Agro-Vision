@@ -9,15 +9,22 @@ import "./form.css";
 
 // import './App.css';
 
-function Forms({ form, setForm, Submit, options, setOptions }) {
+function Forms({
+  form,
+  setForm,
+  Submit,
+  options,
+  setOptions,
+  showOptions,
+  setShowOptions,
+}) {
   const [value, setValue] = useState(null);
   const { req, setReq } = useGlobalContext();
   const { polygon_id } = useGlobalContext();
   const { goptions, setOptions2 } = useGlobalContext();
   const [loading, setLoading] = useState(0);
   const { name, email } = useGlobalContext();
-  const [showOptions, setOptions3] = useState([]);
-  // const { options2, setOptions2 } = useGlobalContext();
+
   const fetchData = async () => {
     setLoading(1);
     let s1 = `${process.env.REACT_APP_BACKEND}/user/crops`;
@@ -32,7 +39,7 @@ function Forms({ form, setForm, Submit, options, setOptions }) {
       url: s1,
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer${accesstoken}`,
+        Authorization: `Bearer ${accesstoken}`,
       },
     };
     console.log(options);
@@ -42,7 +49,7 @@ function Forms({ form, setForm, Submit, options, setOptions }) {
       crops: options,
     });
     // console.log(val);
-    setOptions3(options);
+    setShowOptions(options);
     try {
       const d = await axios.post(s1, val, requestOptions);
       // console.log(d);
@@ -53,47 +60,9 @@ function Forms({ form, setForm, Submit, options, setOptions }) {
     }
   };
 
-  const fetchOptions = async () => {
-    const loggedInUser = localStorage.getItem("user");
-    var accesstoken;
-    if (loggedInUser) {
-      const foundUser = JSON.parse(loggedInUser);
-      accesstoken = foundUser.token;
-    }
-    let s1 = `${process.env.REACT_APP_BACKEND}/user/options`;
-    const requestOptions = {
-      method: "post",
-      url: s1,
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer${accesstoken}`,
-      },
-    };
-
-    const val = JSON.stringify({
-      name: name,
-      email: email,
-    });
-    console.log(val);
-    try {
-      const d = await axios.post(s1, val, requestOptions);
-      // console.log(d.data);
-      setOptions3(d.data.options);
-      // console.log(showOptions);
-      setLoading(0);
-    } catch (err) {
-      console.log(err);
-      setLoading(0);
-    }
-    // setLoading(false);
-
-    // setOptions3(val);
-  };
   useEffect(() => {
     console.log(Submit);
     if (Submit === 0) {
-      setLoading(1);
-      fetchOptions();
     } else setLoading(0);
   }, []);
 
@@ -177,7 +146,6 @@ function Forms({ form, setForm, Submit, options, setOptions }) {
                 console.log(polygon_id);
               } else {
                 // calling an api here in order to create a cropUser tuples
-                // setLoading(true);
                 fetchData();
               }
             }}

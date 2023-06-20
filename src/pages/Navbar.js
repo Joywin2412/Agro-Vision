@@ -22,7 +22,6 @@ function Component({ profile, setProfile, ...props }) {
   const clickHandler = async () => {
     // console.log(accesstoken);
     if (props.show) {
-      setLoading(1);
       var accesstoken;
       const loggedInUser = localStorage.getItem("user");
       if (loggedInUser) {
@@ -33,11 +32,9 @@ function Component({ profile, setProfile, ...props }) {
         t1 = foundUser.name;
         t2 = foundUser.email;
       }
-      console.log("I got clicked");
-      // setLoading(true);
+
       setProfile(0);
-      let glob_name = name;
-      // console.log(glob_name);
+
       try {
         const config = {
           headers: {
@@ -46,18 +43,9 @@ function Component({ profile, setProfile, ...props }) {
           },
         };
 
-        const { data } = await axios.get(
-          `${process.env.REACT_APP_BACKEND}/user/profile/${glob_name}`,
-          config
-        );
-        console.log(data);
-
-        setUserData(data);
-        setLoading(false);
         navigate(`/profile`);
       } catch (error) {
         console.log(error);
-        setLoading(false);
       }
     }
   };

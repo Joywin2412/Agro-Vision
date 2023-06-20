@@ -67,6 +67,7 @@ const Home = () => {
 
     const val = JSON.stringify({
       name: name,
+      email: email,
       polygon_id: id_now,
     });
     console.log(val);

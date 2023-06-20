@@ -19,6 +19,7 @@ function Profile() {
   const [phone, setPhone] = useState("");
   const [Submit, setSubmit] = useState(0);
   const [options, setOptions] = useState([]);
+  const [showOptions, setShowOptions] = useState([]);
   const [pending, setPending] = useState([]);
   const [notif, setNotif] = useState([]);
   const [hashNotif, setHashNotif] = useState([]);
@@ -34,8 +35,10 @@ function Profile() {
     let requestOptions = {
       method: "post",
       url: s1,
-      headers: { "Content-Type": "application/json" },
-      // Authorization: `Bearer ${accesstoken}`,
+      headers: {
+        "Content-Type": "application/json",
+        // Authorization: `Bearer ${accesstoken}`,
+      },
     };
     let val = JSON.stringify({
       email: email,
@@ -70,8 +73,10 @@ function Profile() {
     let requestOptions = {
       method: "post",
       url: s1,
-      headers: { "Content-Type": "application/json" },
-      Authorization: `Bearer ${accesstoken}`,
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${accesstoken}`,
+      },
     };
     let val = JSON.stringify({
       email1: friend_email,
@@ -100,8 +105,10 @@ function Profile() {
     let requestOptions = {
       method: "post",
       url: s1,
-      headers: { "Content-Type": "application/json" },
-      Authorization: `Bearer ${accesstoken}`,
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${accesstoken}`,
+      },
     };
     let val = JSON.stringify({
       email1: friend_email,
@@ -132,8 +139,10 @@ function Profile() {
     let requestOptions = {
       method: "post",
       url: s1,
-      headers: { "Content-Type": "application/json" },
-      Authorization: `Bearer ${accesstoken}`,
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${accesstoken}`,
+      },
     };
     let val = JSON.stringify({
       email1: myEmail,
@@ -155,8 +164,10 @@ function Profile() {
     requestOptions = {
       method: "post",
       url: pendingLink,
-      headers: { "Content-Type": "application/json" },
-      Authorization: `Bearer ${accesstoken}`,
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${accesstoken}`,
+      },
     };
     // console.log(myEmail);
     val = JSON.stringify({
@@ -195,15 +206,15 @@ function Profile() {
     let s1 = `${process.env.REACT_APP_BACKEND}/user/friends`;
     console.log(polygon_id);
     let requestOptions = {
-      method: "post",
-      url: s1,
-      headers: { "Content-Type": "application/json" },
-      Authorization: `Bearer ${accesstoken}`,
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${accesstoken}`,
+      },
     };
     let val = JSON.stringify({
       id: id_now,
+      email: myEmail,
     });
-    console.log(val);
     try {
       const d = await axios.post(s1, val, requestOptions);
       setObj(d.data);
@@ -219,8 +230,10 @@ function Profile() {
     requestOptions = {
       method: "post",
       url: pendingLink,
-      headers: { "Content-Type": "application/json" },
-      Authorization: `Bearer ${accesstoken}`,
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${accesstoken}`,
+      },
     };
     // console.log(myEmail);
     val = JSON.stringify({
@@ -243,10 +256,10 @@ function Profile() {
     let notifLink = `${process.env.REACT_APP_BACKEND}/user/notif`;
     // console.log(polygon_id);
     requestOptions = {
-      method: "post",
-      url: notifLink,
-      headers: { "Content-Type": "application/json" },
-      Authorization: `Bearer ${accesstoken}`,
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${accesstoken}`,
+      },
     };
     // console.log(myEmail);
     val = JSON.stringify({
@@ -272,8 +285,10 @@ function Profile() {
     requestOptions = {
       method: "post",
       url: acceptLink,
-      headers: { "Content-Type": "application/json" },
-      Authorization: `Bearer ${accesstoken}`,
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${accesstoken}`,
+      },
     };
     // console.log(myEmail);
     val = JSON.stringify({
@@ -296,7 +311,40 @@ function Profile() {
       setLoading(false);
     }
   };
+  const fetchOptions = async () => {
+    const loggedInUser = localStorage.getItem("user");
+    var accesstoken;
+    let name, email;
+    if (loggedInUser) {
+      const foundUser = JSON.parse(loggedInUser);
+      accesstoken = foundUser.token;
+      name = foundUser.email;
+      email = foundUser.email;
+    }
+    let s1 = `${process.env.REACT_APP_BACKEND}/user/options`;
+    const requestOptions = {
+      method: "post",
+      url: s1,
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${accesstoken}`,
+      },
+    };
+    const val = JSON.stringify({
+      name: name,
+      email: email,
+    });
+    try {
+      const d = await axios.post(s1, val, requestOptions);
+      // console.log(d.data);
+      setShowOptions(d.data.options);
 
+      // setLoading(0);
+    } catch (err) {
+      console.log(err);
+      // setLoading(0);
+    }
+  };
   useEffect(() => {
     console.log("I got called");
     setLoading(1);
@@ -313,11 +361,13 @@ function Profile() {
     const objectData = localStorage.getItem("obj");
     if (objectData) {
       const foundData = JSON.parse(objectData);
-      console.log(foundData);
+      // console.log(foundData);
       setObj(foundData);
       // setLoading(false);
     }
+    fetchOptions();
     friendsList();
+
     // passing props of hashFriendsList for showing phone
     // pending list
   }, [acc]);
@@ -354,6 +404,8 @@ function Profile() {
                 Submit={0}
                 options={options}
                 setOptions={setOptions}
+                showOptions={showOptions}
+                setShowOptions={setShowOptions}
               ></Forms>
             </div>
           </div>
@@ -443,7 +495,7 @@ function Profile() {
                 backgroundColor: "#064635",
                 borderRadius: "5px",
                 color: "#fff",
-                padding: "5px 15px",
+                padding: "5px 15px",
               }}
               onClick={deleteHandler}
             >
