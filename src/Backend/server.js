@@ -10,18 +10,11 @@ connectDB();
 
 const app = express();
 var cors = require("cors");
-app.use(
-  cors({
-    origin: ["http://localhost:3000", "http://agrovision.onrender.com"],
-  })
-);
-
-// we have to tell the backend that it has to accept the json data from the frontend
+app.use(cors());
 
 app.use(express.json());
 
 app.use("/api/user", userRouters);
-// app.use("/profile", userRouters2);
 app.use(notFound);
 app.use(errorHandler);
 
