@@ -8,7 +8,7 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon backend/server.js"
+    "start": "node server.js"
   },
   "author": "Joywin Pinto",
   "license": "ISC",
