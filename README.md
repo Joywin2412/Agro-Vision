@@ -1,5 +1,5 @@
 # GFG-Hackathon
-Technologies used : Google Cloud AMD instance , MongoDB with google cloud , Node.js , Express.js
+Technologies used :  MongoDB , Node.js , Express.js
 , React.js , React-router-dom , JWT , Bcrypt , React-Leaflet
 
 
