@@ -1,3 +1,6 @@
+For the Machine Learning / AI part refer this : https://github.com/Joywin2412/Flask-Chat-Bot-and-Crop-Prediction-
+
+
 # GFG-Hackathon
 Technologies used :  MongoDB , Node.js , Express.js
 , React.js , React-router-dom , JWT , Bcrypt , React-Leaflet
