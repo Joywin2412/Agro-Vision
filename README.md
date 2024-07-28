@@ -1,3 +1,6 @@
+# AgroVision
+![image](https://github.com/user-attachments/assets/aa515bd2-678a-4759-989a-e683fade7941)
+
 For the Machine Learning / AI part refer this : https://github.com/Joywin2412/Flask-Chat-Bot-and-Crop-Prediction-
 
 
